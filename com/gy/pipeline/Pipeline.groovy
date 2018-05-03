@@ -21,7 +21,7 @@ abstract class Pipeline
      *
      * @param script The global function script clojure
      */
-    BasePipeline(script, currentPipelineName)
+    Pipeline(script, currentPipelineName)
     {
         this.script = script;
         this.steps = this.script.steps
