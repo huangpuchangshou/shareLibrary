@@ -1,0 +1,34 @@
+node : slave
+stage:
+- name : build
+  tool : mvn
+  maven_properties:
+    maven_script: 'mvn clean compile -Dmaven.test.skip=true'
+    maven_options:
+- name : test
+  tool : mvn
+  maven_properties:
+    maven_version : 'M3'
+    maven_script: 'mvn clean test'
+    maven_options:
+notifications:
+- email: chengangyang1982@163.com
+
+pipeline:
+  - name : dev   # branch name starts with feature
+    stage:
+      - name : system Test
+        skip: true
+    notifications:
+      - email: chengangyang1982@163.com
+
+  - name : sys   # branch name equals integration
+    stage:
+      - name : system Test
+        node : slave2
+        tool : mvn
+        maven_properties:
+          maven_version : 'M3'
+          maven_script: 'mvn clean compile -Dmaven.test.skip=true'
+    notifications:
+      - email: chengangyang1982@163.com
